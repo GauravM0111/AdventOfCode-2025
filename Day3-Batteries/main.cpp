@@ -1,23 +1,23 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <cstdint>
+#include <algorithm>
 
-int max_joltage(long long bank) {
-  int first{};
-  int second = bank % 10;
-  bank /= 10;
 
-  while (bank != 0) {
-    int digit = bank % 10;
-    bank /= 10;
+std::int64_t max_joltage(std::string bank) {
+  std::int64_t joltage{};
+  auto start = bank.begin();
+  
+  for (int i = 11; i >= 0; i--) {
+    auto max_digit_pos = std::max_element(start, bank.end() - i);
+    start = max_digit_pos + 1;
 
-    if (digit >= first) {
-      if (first > second) second = first;
-      first = digit;
-    }
+    int max_digit = *max_digit_pos - '0';
+    joltage += max_digit * std::pow(10, i);
   }
 
-  return first * 10 + second;
+  return joltage;
 }
 
 int main() {
@@ -28,7 +28,7 @@ int main() {
     return 1;
   }
 
-  long total_max_joltage{};
+  std::int64_t total_max_joltage{};
   std::string bank{};
   while (std::getline(file, bank)) {
     if (bank.length() < 2) {
@@ -36,7 +36,7 @@ int main() {
       return 1;
     }
 
-    int jolt = max_joltage(std::stoll(bank));
+    std::int64_t jolt = max_joltage(bank);
 
     std::cout << bank << "\t->" << jolt << "\n";
     total_max_joltage += jolt;
