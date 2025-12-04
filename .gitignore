@@ -1,3 +1,5 @@
 .vscode
 main
-main.dSYM
+part1
+part2
+*.dSYM
