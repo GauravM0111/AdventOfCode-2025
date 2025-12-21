@@ -6,7 +6,7 @@
 #include <iterator>
 #include <cstdint>
 
-struct FreshIngredientsPart1 : Solution {
+struct FreshIngredients : Solution {
   using Solution::Solution;
   std::map<std::int64_t, std::int64_t> fresh_id_ranges{};
 
@@ -106,5 +106,5 @@ struct FreshIngredientsPart1 : Solution {
 };
 
 int main() {
-  FreshIngredientsPart1("input.txt").solve();
+  FreshIngredients("input.txt").solve();
 }
